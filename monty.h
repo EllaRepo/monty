@@ -76,6 +76,7 @@ void _pop(stack_t **, unsigned int);
 void _swap(stack_t **, unsigned int);
 void _add(stack_t **, unsigned int);
 void _nop(stack_t **, unsigned int);
+void _sub(stack_t **, unsigned int);
 void (*get_func(char *opcode))(stack_t **stack, unsigned int line_number);
 /* Doubly linked list*/
 stack_t *add_dnodeint(stack_t **head, const int n);
