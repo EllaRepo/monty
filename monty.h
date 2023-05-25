@@ -43,6 +43,7 @@ typedef struct instruction_s
  * @stack: doubly linked list representation of a stack (or queue)
  * @arg: splited opcodes from file
  * @line: string from file function
+ * @opcode: opcode
  * @filename: file name passed as input
  * @line_num: the current opcode line number
  * @fd: file discriptor
@@ -50,8 +51,9 @@ typedef struct instruction_s
 typedef struct mn_s
 {
 	stack_t *stack;
-	char **arg;
+	char *arg;
 	char *line;
+	char *opcode;
 	char *filename;
 	unsigned int line_num;
 	int fd;

@@ -34,9 +34,9 @@ void execute_opcode(void)
 {
 	void (*f)(stack_t **stack, unsigned int line_number);
 
-	f = get_func(mn_parm.arg[0]);
+	f = get_func(mn_parm.opcode);
 	if (!f)
-		get_error(mn_parm.line_num, mn_parm.arg[0]);
+		get_error(mn_parm.line_num, mn_parm.opcode);
 	f(&mn_parm.stack, mn_parm.line_num);
 }
 /**
@@ -46,14 +46,11 @@ void execute_opcode(void)
  */
 void _parse_file(void)
 {
-	mn_parm.arg = tokenize(mn_parm.line);
-	if (mn_parm.arg[0] == NULL)
-	{
-		free(mn_parm.arg);
+	mn_parm.opcode = strtok(mn_parm.line, " \t\n");
+	if (mn_parm.opcode == NULL)
 		return;
-	}
+	mn_parm.arg = strtok(NULL, " \t\n");
 	execute_opcode();
-	free(mn_parm.arg);
 }
 /**
  * parse_file - parse file

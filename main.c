@@ -10,7 +10,6 @@ void free_mn_parm(void)
 {
 	free_stack_t(mn_parm.stack);
 	free(mn_parm.line);
-	free(mn_parm.arg);
 	close(mn_parm.fd);
 }
 /**
@@ -23,6 +22,7 @@ void init(char **argv)
 {
 	mn_parm.stack = NULL;
 	mn_parm.arg = NULL;
+	mn_parm.opcode = NULL;
 	mn_parm.filename = argv[1];
 	mn_parm.line = NULL;
 	mn_parm.line_num = 0;
@@ -46,6 +46,5 @@ int main(int argc, char **argv)
 	}
 	init(argv);
 	parse_file();
-	free_stack_t(mn_parm.stack);
 	exit(EXIT_SUCCESS);
 }
