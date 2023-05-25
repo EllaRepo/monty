@@ -61,7 +61,7 @@ char *_strdup(const char *s)
 	len = strlen(s);
 	new = malloc(sizeof(char) * (len + 1));
 	if (new == NULL)
-		return (NULL);
+		error_malloc();
 	memcpy(new, s, len + 1);
 	return (new);
 }

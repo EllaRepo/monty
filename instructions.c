@@ -17,12 +17,18 @@ void _push(stack_t **head, unsigned int line_number)
 	msg = ": usage: push integer\n";
 
 	if (mn_parm.arg == NULL)
+	{
+		free_mn_parm();
 		get_error(-1, msg);
+	}
 	arg = mn_parm.arg;
 	for (i = 0; arg[i] != '\0'; i++)
 	{
 		if (!_isdigit(arg[i]) && arg[i] != '-')
+		{
+			free_mn_parm();
 			get_error(-1, msg);
+		}
 	}
 	add_dnodeint(head, atoi(arg));
 }

@@ -63,7 +63,7 @@ extern mn_t mn_parm;
 /* Error*/
 void error_malloc(void);
 char *invalid_arg(int err_line_num, char *msg);
-void err_file(char *filename);
+char *err_file(char *filename);
 char *err_opcode(int err_line_num, char *opcode);
 void get_error(int eval, char *str);
 /*parse*/

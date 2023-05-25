@@ -43,7 +43,7 @@ char *invalid_arg(int err_line_num, char *msg)
  *
  * Return: error string
 */
-void err_file(char *filename)
+char *err_file(char *filename)
 {
 	char *error, *msg;
 
@@ -54,9 +54,7 @@ void err_file(char *filename)
 	strcpy(error, msg);
 	strcat(error, filename);
 	strcat(error, "\n\0");
-	write(2, error, strlen(error));
-	free(error);
-	exit(EXIT_FAILURE);
+	return (error);
 }
 /**
  * err_opcode - gets error related with opeining file
@@ -92,7 +90,7 @@ char *err_opcode(int err_line_num, char *opcode)
 */
 void get_error(int eval, char *str)
 {
-	char *error = NULL;
+	char *error;
 
 	switch (eval)
 	{
@@ -100,7 +98,7 @@ void get_error(int eval, char *str)
 			error = invalid_arg(mn_parm.line_num, str);
 			break;
 		case 0:
-			err_file(str);
+			error = err_file(str);
 			break;
 		default:
 			error = err_opcode(eval, str);
@@ -109,6 +107,5 @@ void get_error(int eval, char *str)
 
 	write(STDERR_FILENO, error, strlen(error));
 	free(error);
-	free_mn_parm();
 	exit(EXIT_FAILURE);
 }
