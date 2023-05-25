@@ -14,7 +14,7 @@ void _add(stack_t **head, unsigned int line_number)
 	int i;
 
 	(void)line_number;
-	msg = ": can't add, stack too short";
+	msg = ": can't add, stack too short\n";
 	for (h = *head, i = 0; h != NULL; h = h->next, i++)
 		;
 	if (i < 2)
