@@ -24,7 +24,11 @@ void _push(stack_t **head, unsigned int line_number)
 		if (!_isdigit(arg[i]) && arg[i] != '-')
 			get_error(-1, msg);
 	}
-	add_dnodeint(head, atoi(arg));
+	i = atoi(arg);
+	if (mn_parm.data_format)
+		add_dnodeint(head, i);
+	else
+		add_dnodeint_end(head, i);
 }
 
 /**

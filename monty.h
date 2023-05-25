@@ -47,6 +47,7 @@ typedef struct instruction_s
  * @filename: file name passed as input
  * @line_num: the current opcode line number
  * @fd: file discriptor
+ * @data_format: 1 for LIFO, 0 for FIFO
  */
 typedef struct mn_s
 {
@@ -57,6 +58,7 @@ typedef struct mn_s
 	char *filename;
 	unsigned int line_num;
 	int fd;
+	int data_format;
 } mn_t;
 
 extern mn_t mn_parm;
@@ -87,6 +89,7 @@ void _rotr(stack_t **, unsigned int);
 void (*get_func(char *opcode))(stack_t **stack, unsigned int line_number);
 /* Doubly linked list*/
 stack_t *add_dnodeint(stack_t **head, const int n);
+stack_t *add_dnodeint_end(stack_t **head, const int n);
 void free_stack_t(stack_t *head);
 
 /*string*/

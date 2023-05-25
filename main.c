@@ -27,6 +27,7 @@ void init(char **argv)
 	mn_parm.line = NULL;
 	mn_parm.line_num = 0;
 	mn_parm.fd = open(mn_parm.filename, O_RDONLY);
+	mn_parm.data_format = 1;
 	if (mn_parm.fd == -1)
 		get_error(0, mn_parm.filename);
 }
