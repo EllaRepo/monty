@@ -79,6 +79,11 @@ void _div(stack_t **head, unsigned int line_number)
 		;
 	if (i < 2)
 		get_error(-1, msg);
+	if ((*head)->n == 0)
+	{
+		msg = ": division by zero\n";
+		get_error(-1, msg);
+	}
 	h = (*head)->next;
 	h->n /= (*head)->n;
 	_pop(head, line_number);
