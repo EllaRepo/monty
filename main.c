@@ -46,5 +46,6 @@ int main(int argc, char **argv)
 	}
 	init(argv);
 	parse_file();
+	free_stack_t(mn_parm.stack);
 	exit(EXIT_SUCCESS);
 }
