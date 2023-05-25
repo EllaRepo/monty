@@ -23,3 +23,15 @@ void _add(stack_t **head, unsigned int line_number)
 	h->n += (*head)->n;
 	_pop(head, line_number);
 }
+/**
+ * _nop - deosn't do anything
+ * @head: head of the linked list
+ * @line_number: line numbers
+ *
+ * Return: None
+ */
+void _nop(stack_t **head, unsigned int line_number)
+{
+        (void)head;
+	(void)line_number;
+}
