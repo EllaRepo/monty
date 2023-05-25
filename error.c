@@ -71,13 +71,14 @@ char *err_opcode(int err_line_num, char *opcode)
 	lnum = itoa(err_line_num, buffer);
 	msg = ": unknown instruction ";
 	error = malloc(sizeof(char) * (strlen(msg) + strlen(lnum)
-		+ strlen(opcode) + 2));
+		+ strlen(opcode) + 3));
 	if (!error)
 		error_malloc();
 	strcpy(error, "L");
 	strcat(error, lnum);
+	strcat(error, msg);
 	strcat(error, opcode);
-	strcat(error, "\0");
+	strcat(error, "\n\0");
 	return (error);
 }
 /**

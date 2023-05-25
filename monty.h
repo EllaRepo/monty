@@ -42,7 +42,7 @@ typedef struct instruction_s
  * struct mn_s - a struct that holds interpreter parameters
  * @stack: doubly linked list representation of a stack (or queue)
  * @arg: splited opcodes from file
- * @buff: bufferr used for getline
+ * @line: string from file function
  * @filename: file name passed as input
  * @line_num: the current opcode line number
  * @fd: file discriptor
@@ -50,30 +50,36 @@ typedef struct instruction_s
 typedef struct mn_s
 {
 	stack_t *stack;
-	char *arg;
-	char *buff;
+	char **arg;
+	char *line;
 	char *filename;
 	unsigned int line_num;
-	FILE *fd;
+	int fd;
 } mn_t;
 
 extern mn_t mn_parm;
-/*main*/
-void free_mn_parm(void);
-
-void (*get_func(char *opcode))(stack_t **stack, unsigned int line_number);
-/* Doubly linked list*/
-stack_t *add_dnodeint(stack_t **head, const int n);
-void free_stack_t(stack_t *);
-void free_stack_t(stack_t *);
 /* Error*/
 void error_malloc(void);
+char *invalid_arg(int err_line_num, char *msg);
 char *err_file(char *filename);
 char *err_opcode(int err_line_num, char *opcode);
 void get_error(int eval, char *str);
+/*parse*/
+void parse_file(void);
 /*instructions*/
 void _push(stack_t **, unsigned int);
 void _pall(stack_t **, unsigned int);
+void (*get_func(char *opcode))(stack_t **stack, unsigned int line_number);
+/* Doubly linked list*/
+stack_t *add_dnodeint(stack_t **head, const int n);
+void free_stack_t(stack_t *head);
+
 /*string*/
+void reverse(char str[], int length);
 char *itoa(unsigned int num, char *str);
+char *_strdup(const char *s);
+/*main*/
+void init(char **argv);
+void free_mn_parm(void);
+
 #endif
