@@ -80,6 +80,7 @@ void _sub(stack_t **, unsigned int);
 void _div(stack_t **, unsigned int);
 void _mul(stack_t **, unsigned int);
 void _mod(stack_t **, unsigned int);
+void _pchar(stack_t **, unsigned int);
 void (*get_func(char *opcode))(stack_t **stack, unsigned int line_number);
 /* Doubly linked list*/
 stack_t *add_dnodeint(stack_t **head, const int n);
