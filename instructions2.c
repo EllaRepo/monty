@@ -46,7 +46,7 @@ void _pchar(stack_t **head, unsigned int line_number)
 		get_error(-1, msg);
 	if ((*head)->n < 0 || (*head)->n > 127)
 	{
-		msg = ": can't pchar, value out of ascii range\n";
+		msg = ": can't pchar, value out of range\n";
 		get_error(-1, msg);
 	}
 	printf("%c\n", (*head)->n);
