@@ -51,3 +51,23 @@ void _pchar(stack_t **head, unsigned int line_number)
 	}
 	printf("%c\n", (*head)->n);
 }
+/**
+ * _pstr - prints the string starting at the top of the stack
+ * @head: head of the linked list
+ * @line_number: line numbers
+ *
+ * Return: None
+ */
+void _pstr(stack_t **head, unsigned int line_number)
+{
+	stack_t *h;
+	(void)line_number;
+
+	h = *head;
+	while (h && (*head)->n > 0 && (*head)->n < 128)
+	{
+		printf("%c", h->n);
+		h = h->next;
+	}
+	printf("\n");
+}
