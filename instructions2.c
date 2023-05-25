@@ -71,3 +71,26 @@ void _pstr(stack_t **head, unsigned int line_number)
 	}
 	printf("\n");
 }
+/**
+ * _rotl - rotates the stack to the top
+ * @head: head of the linked list
+ * @line_number: line numbers
+ *
+ * Return: None
+ */
+void _rotl(stack_t **head, unsigned int line_number)
+{
+	stack_t *h, *h2;
+	(void)line_number;
+
+	if (*head == NULL || (*head)->next == NULL)
+		return;
+	h = (*head)->next;
+	for (h2 = *head; h2->next != NULL; h2 = h2->next)
+		;
+	h->prev = NULL;
+	h2->next = *head;
+	(*head)->next = NULL;
+	(*head)->prev = h2;
+	*head = h;
+}
