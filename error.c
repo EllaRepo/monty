@@ -107,5 +107,6 @@ void get_error(int eval, char *str)
 
 	write(STDERR_FILENO, error, strlen(error));
 	free(error);
+	free_mn_parm();
 	exit(EXIT_FAILURE);
 }
