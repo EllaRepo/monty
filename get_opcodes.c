@@ -13,7 +13,8 @@ void (*get_func(char *opcode))(stack_t **stack, unsigned int line_number)
 	instruction_t instructions[] = {
 		{"push", _push}, {"pall", _pall}, {"pint", _pint},
 		{"pop", _pop}, {"swap", _swap}, {"add", _add},
-		{"nop", _nop}, {"sub", _sub}, {NULL, NULL}
+		{"nop", _nop}, {"sub", _sub}, {"div", _div},
+		{NULL, NULL}
 	};
 	i = 0;
 	while (instructions[i].opcode != NULL)
