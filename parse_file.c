@@ -47,7 +47,7 @@ void execute_opcode(void)
 void _parse_file(void)
 {
 	mn_parm.opcode = strtok(mn_parm.line, " \t\n");
-	if (mn_parm.opcode == NULL)
+	if (mn_parm.opcode == NULL || mn_parm.opcode[0] == '#')
 		return;
 	mn_parm.arg = strtok(NULL, " \t\n");
 	execute_opcode();
