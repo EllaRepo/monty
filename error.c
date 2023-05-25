@@ -7,9 +7,78 @@
 */
 void error_malloc(void)
 {
-	dprintf(2, "Error: malloc failed\n");
+	char *msg;
+
+	msg = "Error: malloc failed\n";
+	write(STDERR_FILENO, msg, strlen(msg));
 	free_mn_parm();
 	exit(EXIT_FAILURE);
+}
+/**
+ * invalid_arg - gets error related with invalid arg
+ * @err_line_num: error line number
+ * @msg: error message
+ *
+ * Return: error string
+*/
+char *invalid_arg(int err_line_num, char *msg)
+{
+	char *error, *lnum;
+	char buffer[33];
+
+	lnum = itoa(err_line_num, buffer);
+	error = malloc(sizeof(char) * (strlen(msg) + strlen(lnum)
+		+ 2));
+	if (!error)
+		error_malloc();
+	strcpy(error, "L");
+	strcat(error, lnum);
+	strcat(error, msg);
+	strcat(error, "\0");
+	return (error);
+}
+/**
+ * err_file - gets error related with opeining file
+ * @filename: file name
+ *
+ * Return: error string
+*/
+char *err_file(char *filename)
+{
+	char *error, *msg;
+
+	msg = "Error: Can't open file ";
+	error = malloc(sizeof(char) * (strlen(msg) + strlen(filename) + 2));
+	if (!error)
+		error_malloc();
+	strcpy(error, msg);
+	strcat(error, filename);
+	strcat(error, "\n\0");
+	return (error);
+}
+/**
+ * err_opcode - gets error related with opeining file
+ * @err_line_num: error line number
+ * @opcode: opcode
+ *
+ * Return: error string
+*/
+char *err_opcode(int err_line_num, char *opcode)
+{
+	char *error, *msg, *lnum;
+	char buffer[33];
+
+	lnum = itoa(err_line_num, buffer);
+	msg = ": unknown instruction ";
+	error = malloc(sizeof(char) * (strlen(msg) + strlen(lnum)
+		+ strlen(opcode) + 2));
+	if (!error)
+		error_malloc();
+	strcpy(error, "L");
+	strcat(error, lnum);
+	strcat(error, opcode);
+	strcat(error, "\0");
+	return (error);
 }
 /**
  * get_error - prints error message to stderr
@@ -20,18 +89,22 @@ void error_malloc(void)
 */
 void get_error(int eval, char *str)
 {
+	char *error;
+
 	switch (eval)
 	{
 		case -1:
-			dprintf(2, "USAGE: monty file\n");
+			error = invalid_arg(mn_parm.line_num, str);
 			break;
 		case 0:
-			dprintf(2, "Error: Can't open file %s\n", eval, str);
+			error = err_file(str);
 			break;
 		default:
-			dprintf(2, "L%u: unknown instruction %s\n", mn_parm.line_num, str);
+			error = err_opcode(eval, str);
 			break;
 	}
-	free_mn_parm();
+
+	write(STDERR_FILENO, error, strlen(error));
+	free(error);
 	exit(EXIT_FAILURE);
 }

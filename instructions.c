@@ -12,16 +12,15 @@ void _push(stack_t **head, unsigned int line_number)
 {
 	char *msg;
 
-	msg = "usage: push integer\n";
+	msg = ": usage: push integer\n";
 
-	if (mn_parm.arg[1] == NULL)
+	if (mn_parm.arg == NULL)
 	{
-		dprintf(2, "L%u: %s", line_number, msg);
 		free_mn_parm();
-		exit(EXIT_FAILURE);
+		get_error(line_number, msg);
 	}
 
-	add_dnodeint(head, atoi(mn_parm.arg[1]));
+	add_dnodeint(head, atoi(mn_parm.arg));
 }
 
 /**

@@ -4,11 +4,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <unistd.h>
 #include <fcntl.h>
-#include <ctype.h>
 
 #define BUFSIZE 1024
 /**
@@ -43,7 +42,7 @@ typedef struct instruction_s
  * struct mn_s - a struct that holds interpreter parameters
  * @stack: doubly linked list representation of a stack (or queue)
  * @arg: splited opcodes from file
- * @line: string from file function
+ * @buff: bufferr used for getline
  * @filename: file name passed as input
  * @line_num: the current opcode line number
  * @fd: file discriptor
@@ -51,23 +50,17 @@ typedef struct instruction_s
 typedef struct mn_s
 {
 	stack_t *stack;
-	char **arg;
-	char *line;
+	char *arg;
+	char *buff;
 	char *filename;
 	unsigned int line_num;
-	int fd;
+	FILE *fd;
 } mn_t;
 
 extern mn_t mn_parm;
-extern int dprintf(int fd, const char *format, ...);
-extern char *strdup(const char *s);
 /*main*/
 void free_mn_parm(void);
-/*parse opcode*/
-char **tokenize(char *str);
-void execute_opcode(void);
-void _parse_file(void);
-void parse_file(void);
+
 void (*get_func(char *opcode))(stack_t **stack, unsigned int line_number);
 /* Doubly linked list*/
 stack_t *add_dnodeint(stack_t **head, const int n);
@@ -75,8 +68,12 @@ void free_stack_t(stack_t *);
 void free_stack_t(stack_t *);
 /* Error*/
 void error_malloc(void);
-void get_error(int, char *);
+char *err_file(char *filename);
+char *err_opcode(int err_line_num, char *opcode);
+void get_error(int eval, char *str);
 /*instructions*/
 void _push(stack_t **, unsigned int);
 void _pall(stack_t **, unsigned int);
+/*string*/
+char *itoa(unsigned int num, char *str);
 #endif

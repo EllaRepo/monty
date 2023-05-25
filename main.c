@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "monty.h"
 
 mn_t mn_parm;
@@ -9,9 +10,8 @@ mn_t mn_parm;
 void free_mn_parm(void)
 {
 	free_stack_t(mn_parm.stack);
-	free(mn_parm.line);
-	free(mn_parm.arg);
-	close(mn_parm.fd);
+	free(mn_parm.buff);
+	fclose(mn_parm.fd);
 }
 /**
  * init - initializes global parameters
@@ -24,10 +24,9 @@ void init(char **argv)
 	mn_parm.stack = NULL;
 	mn_parm.arg = NULL;
 	mn_parm.filename = argv[1];
-	mn_parm.line = NULL;
-	mn_parm.line_num = 0;
-	mn_parm.fd = open(mn_parm.filename, O_RDONLY);
-	if (mn_parm.fd == -1)
+	mn_parm.line_num = 1;
+	mn_parm.fd =  fopen(argv[1], "r");
+	if (mn_parm.fd == NULL)
 		get_error(0, mn_parm.filename);
 }
 /**
@@ -39,9 +38,35 @@ void init(char **argv)
  */
 int main(int argc, char **argv)
 {
+	size_t size;
+	ssize_t i;
+	FILE *fd = NULL;
+	char *line;
+	void (*f)(stack_t **stack, unsigned int line_number);
+
 	if (argc != 2)
-		get_error(-1, NULL);
+	{
+		write(2, "USAGE: monty file\n", 18);
+		exit(EXIT_FAILURE);
+	}
 	init(argv);
-	parse_file();
+	size = BUFSIZE;
+	i = getline(&mn_parm.buff, &size, fd);
+	while (i != -1)
+	{
+		line = strtok(mn_parm.buff, " \t\n");
+		if (line)
+		{
+			f = get_func(line);
+			if (!f)
+				get_error(mn_parm.line_num, line);
+			mn_parm.arg = strtok(NULL, " \t\n");
+			f(&mn_parm.stack, mn_parm.line_num);
+		}
+		i = getline(&mn_parm.buff, &size, fd);
+		mn_parm.line_num++;
+	}
+	free_mn_parm();
+
 	exit(EXIT_SUCCESS);
 }
