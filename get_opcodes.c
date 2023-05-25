@@ -11,7 +11,7 @@ void (*get_func(char *opcode))(stack_t **stack, unsigned int line_number)
 {
 	int i;
 	instruction_t instructions[] = {
-		{"push", _push}, {"pall", _pall}, {NULL, NULL}
+		{"push", _push}, {"pall", _pall}, {"pint", _pint}, {NULL, NULL}
 	};
 	i = 0;
 	while (instructions[i].opcode != NULL)

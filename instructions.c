@@ -17,18 +17,12 @@ void _push(stack_t **head, unsigned int line_number)
 	msg = ": usage: push integer\n";
 
 	if (mn_parm.arg == NULL)
-	{
-		free_mn_parm();
 		get_error(-1, msg);
-	}
 	arg = mn_parm.arg;
 	for (i = 0; arg[i] != '\0'; i++)
 	{
 		if (!_isdigit(arg[i]) && arg[i] != '-')
-		{
-			free_mn_parm();
 			get_error(-1, msg);
-		}
 	}
 	add_dnodeint(head, atoi(arg));
 }
@@ -51,4 +45,21 @@ void _pall(stack_t **head, unsigned int line_number)
 		printf("%d\n", h->n);
 		h = h->next;
 	}
+}
+/**
+ * _pint -  the value at the top of the stack, followed by a new line
+ * @head: head of the linked list
+ * @line_number: line numbers
+ *
+ * Return: None
+ */
+void _pint(stack_t **head, unsigned int line_number)
+{
+	char *msg;
+
+	(void)line_number;
+	msg = ": can't pint, stack empty\n";
+	if (!(*head))
+		get_error(-1, msg);
+	printf("%d\n", (*head)->n);
 }

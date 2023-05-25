@@ -63,7 +63,7 @@ extern mn_t mn_parm;
 /* Error*/
 void error_malloc(void);
 char *invalid_arg(int err_line_num, char *msg);
-char *err_file(char *filename);
+void err_file(char *filename);
 char *err_opcode(int err_line_num, char *opcode);
 void get_error(int eval, char *str);
 /*parse*/
@@ -71,6 +71,7 @@ void parse_file(void);
 /*instructions*/
 void _push(stack_t **, unsigned int);
 void _pall(stack_t **, unsigned int);
+void _pint(stack_t **, unsigned int);
 void (*get_func(char *opcode))(stack_t **stack, unsigned int line_number);
 /* Doubly linked list*/
 stack_t *add_dnodeint(stack_t **head, const int n);
