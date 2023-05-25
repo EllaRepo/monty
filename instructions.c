@@ -63,3 +63,23 @@ void _pint(stack_t **head, unsigned int line_number)
 		get_error(-1, msg);
 	printf("%d\n", (*head)->n);
 }
+/**
+ * _pop - removes the top element of the stack
+ * @head: head of the linked list
+ * @line_number: line numbers
+ *
+ * Return: None
+ */
+void _pop(stack_t **head, unsigned int line_number)
+{
+	stack_t *h;
+	char *msg;
+
+	(void)line_number;
+	msg = ": can't pop an empty stack\n";
+	if (!(*head))
+		get_error(-1, msg);
+	h = *head;
+	*head = (*head)->next;
+	free(h);
+}
