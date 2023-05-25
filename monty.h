@@ -78,6 +78,7 @@ void free_stack_t(stack_t *head);
 void reverse(char str[], int length);
 char *itoa(unsigned int num, char *str);
 char *_strdup(const char *s);
+int _isdigit(char c);
 /*main*/
 void init(char **argv);
 void free_mn_parm(void);
