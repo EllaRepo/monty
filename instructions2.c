@@ -94,3 +94,26 @@ void _rotl(stack_t **head, unsigned int line_number)
 	(*head)->prev = h2;
 	*head = h;
 }
+/**
+ * _rotr - rotates the stack to the mottom
+ * @head: head of the linked list
+ * @line_number: line numbers
+ *
+ * Return: None
+ */
+void _rotr(stack_t **head, unsigned int line_number)
+{
+	stack_t *h;
+	(void)line_number;
+
+	if (*head == NULL || (*head)->next == NULL)
+		return;
+	h = (*head)->next;
+	for (h = *head; h->next != NULL; h = h->next)
+		;
+	h->prev->next = NULL;
+	h->prev = NULL;
+	h->next = *head;
+	(*head)->prev = h;
+	*head = h;
+}
