@@ -44,7 +44,7 @@ void _pchar(stack_t **head, unsigned int line_number)
 	msg = ": can't pchar, stack empty\n";
 	if (!(*head))
 		get_error(-1, msg);
-	if ((*head)->n < 0 || (*head)->n > 128)
+	if ((*head)->n < 0 || (*head)->n > 127)
 	{
 		msg = ": can't pchar, value out of ascii range\n";
 		get_error(-1, msg);
